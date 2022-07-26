@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PDF Reader</title>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+      integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
+      crossorigin="anonymous"
+    ></script>
+    <script src="//mozilla.github.io/pdf.js/build/pdf.js"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="control-wrap">
+        <button class="prev-btn"><</button>
+        <div class="page-wrap">
+          <input type="number" class="page-cur" />
+          <span class="separetor">/</span>
+          <span class="page-total">99</span>
+        </div>
+        <button class="next-btn">></button>
+      </div>
+      <div class="content-wrap">
+        <div class="content-inner">
+          <canvas class="left-content"></canvas>
+          <canvas class="right-content"></canvas>
+        </div>
+      </div>
+    </div>
+    <script src="./config.js"></script>
+    <script src="./view.js"></script>
+    <script src="./pdf-viewer.js"></script>
+  </body>
+</html>
