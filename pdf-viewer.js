@@ -81,3 +81,29 @@ function onNextBtn() {
   log("next btn");
   calCurNumPage("+");
 }
+
+function varifyPageNum(num) {
+  let res = parseInt(num);
+
+  if (res != NaN) {
+    if (res < 1 || res > totalNumPage) {
+      return 1;
+    }
+    return res;
+  }
+
+  return 1;
+}
+
+/**
+ * 페이지 변경 이벤트 함수
+ */
+function onChangePageNum(thiz) {
+  let value = $(thiz).val();
+
+  log("user input val: ", value);
+
+  curNumPage = varifyPageNum(value);
+
+  renderPage(curNumPage, totalNumPage);
+}

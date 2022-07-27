@@ -68,7 +68,7 @@ async function getRenderContext(_mode, _ctx, _page) {
 
 async function renderPage(_curNumPage, _totalNumPage) {
   let renderContextLeft;
-  let page = await getPage(curNumPage);
+  let page = await getPage(_curNumPage);
 
   if (_curNumPage == 1 || _curNumPage == _totalNumPage) {
     log("render case 1: page one");

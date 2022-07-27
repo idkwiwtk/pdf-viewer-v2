@@ -18,7 +18,11 @@
       <div class="control-wrap">
         <button class="prev-btn"><</button>
         <div class="page-wrap">
-          <input type="number" class="page-cur" />
+          <input
+            type="number"
+            class="page-cur"
+            onchange="onChangePageNum(this)"
+          />
           <span class="separetor">/</span>
           <span class="page-total">99</span>
         </div>
