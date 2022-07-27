@@ -102,6 +102,9 @@ body {
   background-color: #ff7396;
 }
 
+/*
+오른쪽 페이지 랜더링
+*/
 .right-content {
   width: auto;
   transform: translateX(-50%);
