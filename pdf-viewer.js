@@ -105,5 +105,6 @@ function onChangePageNum(thiz) {
 
   curNumPage = varifyPageNum(value);
 
+  updateCurNumPage(curNumPage);
   renderPage(curNumPage, totalNumPage);
 }
