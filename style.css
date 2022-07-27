@@ -103,5 +103,6 @@ body {
 }
 
 .right-content {
+  width: auto;
   transform: translateX(-50%);
 }

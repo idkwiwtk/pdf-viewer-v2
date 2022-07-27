@@ -17,7 +17,7 @@ async function getPage(_num) {
 
 // 첫번째 페이지를 기준으로 퓨포트 크기를 조정함
 function getScaledViewport(_page) {
-  let tempViewport = _page.getViewport({ scale: 1 });
+  let tempViewport = _page.getViewport({ scale: 1, offsetX: 5 });
   let scale = canvas.height / tempViewport.height;
 
   log("getScaledViewport -> _page: ", _page);
@@ -37,13 +37,18 @@ function setCanvasSize(_mode, _viewport) {
     $canvasRight[0].width = _viewport.width;
     $canvasRight[0].height = _viewport.height;
   } else if (_mode == "page2") {
+    $canvasLeft[0].width = _viewport.width / 2;
+    $canvasLeft[0].height = _viewport.height;
+    $canvasRight[0].width = _viewport.width;
+    $canvasRight[0].height = _viewport.height;
   } else {
     log("setCanvasSize -> wrong mode: ", _mode);
   }
 }
 
 async function getRenderContext(_mode, _ctx, _page) {
-  let viewport = scaledViewport && getScaledViewport(_page);
+  // let viewport = scaledViewport && getScaledViewport(_page);
+  let viewport = getScaledViewport(_page);
 
   log("getRenderContext: viewport", viewport);
 
