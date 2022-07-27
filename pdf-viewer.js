@@ -12,13 +12,35 @@ pdfjsLib.getDocument(url).promise.then(function (pdfDoc_) {
  * 1. pdf 객체 등록
  * 2. pdf 전체 페이지 등록 및 표시
  * 3. 페이지 전환 버튼에 이벤트 리스너 등록
+ * 4. viewport 초기화
  */
 function initViewer(_pdfDoc) {
+  log("start init Viewer");
   pdfDoc = _pdfDoc;
   totalNumPage = pdfDoc.numPages;
 
+  log("start init viewport");
+  initViewport();
+  log("finish init viewport");
+
   $(".prev-btn").click(onPrevBtn);
   $(".next-btn").click(onNextBtn);
+
+  log("finish init Viewer");
+}
+
+// 첫번째 페이지를 기준으로 뷰포트를 초기화
+async function initViewport() {
+  let firstPage = await getPage(1);
+  let tempViewport = firstPage.getViewport({ scale: 1 });
+  let scale = canvas.height / tempViewport.height;
+
+  log("getScaledViewport -> firstPage: ", firstPage);
+  log("getScaledViewport -> tempViewport: ", tempViewport);
+  log("getScaledViewport -> tempViewport.height: ", tempViewport.height);
+  log("getScaledViewport -> scale: ", scale);
+
+  scaledViewport = scale;
 }
 
 /**

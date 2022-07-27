@@ -25,3 +25,6 @@ var totalNumPage; // 총 페이지 수
 // 캔버스 객체
 var $canvasLeft = $(".left-content");
 var $canvasRight = $(".right-content");
+
+var $pageLeft = $(".page-left");
+var $pageRight = $(".page-right");

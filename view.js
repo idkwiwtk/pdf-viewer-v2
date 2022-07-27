@@ -15,6 +15,7 @@ async function getPage(_num) {
   return await pdfDoc.getPage(_num);
 }
 
+// 첫번째 페이지를 기준으로 퓨포트 크기를 조정함
 function getScaledViewport(_page) {
   let tempViewport = _page.getViewport({ scale: 1 });
   let scale = canvas.height / tempViewport.height;
@@ -24,6 +25,8 @@ function getScaledViewport(_page) {
   log("getScaledViewport -> tempViewport.height: ", tempViewport.height);
   log("getScaledViewport -> scale: ", scale);
 
+  scaledViewport = scale;
+
   return _page.getViewport({ scale: scale });
 }
 
@@ -31,6 +34,8 @@ function setCanvasSize(_mode, _viewport) {
   if (_mode == "page1") {
     $canvasLeft[0].width = _viewport.width;
     $canvasLeft[0].height = _viewport.height;
+    $canvasRight[0].width = _viewport.width;
+    $canvasRight[0].height = _viewport.height;
   } else if (_mode == "page2") {
   } else {
     log("setCanvasSize -> wrong mode: ", _mode);
@@ -38,14 +43,18 @@ function setCanvasSize(_mode, _viewport) {
 }
 
 async function getRenderContext(_mode, _ctx, _page) {
-  let viewport = getScaledViewport(_page);
+  let viewport = scaledViewport && getScaledViewport(_page);
+
+  log("getRenderContext: viewport", viewport);
 
   setCanvasSize(_mode, viewport);
+
+  return { canvasContext: _ctx, viewport: viewport };
 
   if (_mode == "page1") {
     return { canvasContext: _ctx, viewport: viewport };
   } else if (_mode == "page2") {
-    return [];
+    return { canvasContext: _ctx, viewport: scaledViewport };
   }
 
   log("getRenderContexrt -> wrong param mode: ", _mode);
@@ -53,32 +62,43 @@ async function getRenderContext(_mode, _ctx, _page) {
 }
 
 async function renderPage(_curNumPage, _totalNumPage) {
-  let renderContext;
+  let renderContextLeft;
   let page = await getPage(curNumPage);
 
   if (_curNumPage == 1 || _curNumPage == _totalNumPage) {
     log("render case 1: page one");
-    $canvasRight.hide();
+    $pageRight.hide();
 
-    renderContext = await getRenderContext(
+    renderContextLeft = await getRenderContext(
       "page1",
       $canvasLeft[0].getContext("2d"),
       page
     );
-    log("renderPage -> renderContext", renderContext);
+    log("renderPage -> renderContext", renderContextLeft);
 
-    await page.render(renderContext);
-
-    log("finish render");
+    await page.render(renderContextLeft);
   } else {
     log("render case 2: page two");
-    $canvasRight.show();
-    renderContext = await getRenderContext(
+    $pageRight.show();
+
+    // render Left page
+    renderContextLeft = await getRenderContext(
       "page2",
       $canvasLeft[0].getContext("2d"),
       page
     );
+
+    // render Right page
+    renderContextRight = await getRenderContext(
+      "page2",
+      $canvasRight[0].getContext("2d"),
+      page
+    );
+
+    await page.render(renderContextLeft);
+    await page.render(renderContextRight);
   }
+  log("finish render");
 }
 
 function queueRenderPage(num) {
