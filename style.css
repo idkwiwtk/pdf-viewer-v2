@@ -84,6 +84,7 @@ body {
   width: 80%;
   height: 100%;
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
 }
@@ -113,4 +114,25 @@ body {
 .down-pdf {
   padding: 0 20px;
   line-height: var(--control-el-height);
+}
+
+@media (max-width: 1024px) {
+  html,
+  body {
+    width: 100%;
+    height: auto;
+  }
+  .content-inner {
+    width: 95%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .page-left,
+  .page-right {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+  }
 }

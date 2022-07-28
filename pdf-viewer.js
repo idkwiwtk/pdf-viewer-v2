@@ -108,3 +108,14 @@ function onChangePageNum(thiz) {
   updateCurNumPage(curNumPage);
   renderPage(curNumPage, totalNumPage);
 }
+
+$(document).ready(function () {
+  $(window).resize(function () {
+    if ($(window).width() <= 1024) {
+      log("mobile");
+    } else {
+      log("pc");
+    }
+    renderPage(curNumPage, totalNumPage);
+  });
+});
