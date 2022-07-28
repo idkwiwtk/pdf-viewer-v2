@@ -12,6 +12,19 @@
     ></script>
     <script src="//mozilla.github.io/pdf.js/build/pdf.js"></script>
     <link rel="stylesheet" href="style.css" />
+    <!-- <link
+      href="../animation/booklet-master/src/jquery.booklet.latest.css"
+      type="text/css"
+      rel="stylesheet"
+      media="screen, projection, tv"
+    />
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../animation/booklet-master/src/jquery.easing.1.3.js"></script>
+    <script src="../animation/booklet-master/src/jquery.booklet.latest.min.js"></script>
+    <script
+      type="text/javascript"
+      src="../animation/turnjs4/extras/modernizr.2.5.3.min.js"
+    ></script> -->
   </head>
   <body>
     <div class="container">
@@ -29,8 +42,8 @@
         <button class="next-btn">></button>
         <a href="./test.pdf" class="down-pdf" download="">PDF 다운로드</a>
       </div>
-      <div class="content-wrap">
-        <div class="content-inner">
+      <div class="content-wrap flipbook-viewport">
+        <div class="content-inner flipbook">
           <div class="page-left">
             <canvas class="left-content"></canvas>
           </div>
