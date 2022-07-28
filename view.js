@@ -75,7 +75,55 @@ async function getRenderContext(_mode, _ctx, _page) {
   return [];
 }
 
+function makePages(_$inner) {
+  let leftPage = $(
+    `<div class="page-left"><canvas class="left-content"></canvas></div>`
+  );
+  let rightPage = $(
+    `<div class="page-right"><canvas class="right-content"></canvas></div>`
+  );
+
+  canvas = {
+    width: $(".show-page .left-content").width(),
+    height: $(".show-page .left-content").height(),
+  };
+
+  _$inner.append(leftPage);
+  _$inner.append(rightPage);
+}
+
+function switchPage() {
+  let $newPage = $(".hidden-page");
+  let $prevPage = $(".show-page");
+
+  $prevPage.empty();
+
+  $prevPage.addClass("hidden-page");
+  $prevPage.removeClass("show-page");
+
+  $newPage.addClass("show-page");
+  $newPage.removeClass("hidden-page");
+}
+
+function preRenderPage(_curNumPage) {
+  let $newPage = $(".hidden-page");
+
+  log("preRenderPage", $newPage);
+
+  makePages($newPage);
+
+  $canvasLeft = $(".hidden-page .left-content");
+  $canvasRight = $(".hidden-page .right-content");
+
+  log("make page", $canvasLeft);
+
+  $pageLeft = $(".hidden-page .page-left");
+  $pageRight = $(".hidden-page .page-right");
+}
+
 async function renderPage(_curNumPage, _totalNumPage) {
+  switchPage();
+  preRenderPage(_curNumPage + 1);
   let renderContextLeft;
   let page = await getPage(_curNumPage);
 

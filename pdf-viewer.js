@@ -1,12 +1,13 @@
 /**
  * pdf 파일 로드 후 초기화 작업 수행
  */
-pdfjsLib.getDocument(url).promise.then(function (pdfDoc_) {
-  initViewer(pdfDoc_);
-  initComponent(curNumPage, totalNumPage);
-  renderPage(curNumPage, totalNumPage);
+$(document).ready(function () {
+  pdfjsLib.getDocument(url).promise.then(function (pdfDoc_) {
+    initViewer(pdfDoc_);
+    initComponent(curNumPage, totalNumPage);
+    renderPage(curNumPage, totalNumPage);
+  });
 });
-
 /**
  * PDF 뷰어를 위한 초기화 작업 수행
  * 1. pdf 객체 등록
