@@ -61,14 +61,14 @@ function calCurNumPage(mode) {
       curNumPage++;
       log("page up: ", curNumPage);
       updateCurNumPage(curNumPage);
-      renderPage(curNumPage, totalNumPage);
+      renderPage(curNumPage, totalNumPage, "+");
     }
   } else if (mode == "-") {
     if (curNumPage - 1 > 0) {
       curNumPage--;
       log("page down: ", curNumPage);
       updateCurNumPage(curNumPage);
-      renderPage(curNumPage, totalNumPage);
+      renderPage(curNumPage, totalNumPage, "-");
     }
   }
 }

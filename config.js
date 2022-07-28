@@ -18,6 +18,10 @@ var canvas = {
   width: $(".left-content").width(),
   height: $(".left-content").height(),
 };
+var canvasBg = {
+  width: $(".background").width(),
+  height: $(".background").height(),
+};
 
 var curNumPage = 1; // 현재 페이지 번호
 var totalNumPage; // 총 페이지 수
@@ -25,6 +29,7 @@ var totalNumPage; // 총 페이지 수
 // 캔버스 객체
 var $canvasLeft = $(".left-content");
 var $canvasRight = $(".right-content");
+var $canvasBg = $(".background");
 
 var $pageLeft = $(".page-left");
 var $pageRight = $(".page-right");

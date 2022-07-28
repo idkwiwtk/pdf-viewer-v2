@@ -45,11 +45,21 @@ function setCanvasSize(_mode, _viewport) {
     $canvasLeft[0].height = _viewport.height;
     $canvasRight[0].width = _viewport.width;
     $canvasRight[0].height = _viewport.height;
+
+    // $canvasBg.width(_viewport.width);
+    // $canvasBg.height(_viewport.height);
+    $canvasBg[0].width = _viewport.width;
+    $canvasBg[0].height = _viewport.height;
   } else if (_mode == "page2") {
     $canvasLeft[0].width = _viewport.width / 2;
     $canvasLeft[0].height = _viewport.height;
     $canvasRight[0].width = _viewport.width;
     $canvasRight[0].height = _viewport.height;
+
+    // $canvasBg.width(_viewport.width);
+    // $canvasBg.height(_viewport.height);
+    $canvasBg[0].width = _viewport.width;
+    $canvasBg[0].height = _viewport.height;
   } else {
     log("setCanvasSize -> wrong mode: ", _mode);
   }
@@ -75,62 +85,29 @@ async function getRenderContext(_mode, _ctx, _page) {
   return [];
 }
 
-function makePages(_$inner) {
-  let leftPage = $(
-    `<div class="page-left"><canvas class="left-content"></canvas></div>`
-  );
-  let rightPage = $(
-    `<div class="page-right"><canvas class="right-content"></canvas></div>`
-  );
-
-  canvas = {
-    width: $(".show-page .left-content").width(),
-    height: $(".show-page .left-content").height(),
-  };
-
-  _$inner.append(leftPage);
-  _$inner.append(rightPage);
-}
-
-function switchPage() {
-  let $newPage = $(".hidden-page");
-  let $prevPage = $(".show-page");
-
-  $prevPage.empty();
-
-  $prevPage.addClass("hidden-page");
-  $prevPage.removeClass("show-page");
-
-  $newPage.addClass("show-page");
-  $newPage.removeClass("hidden-page");
-}
-
-function preRenderPage(_curNumPage) {
-  let $newPage = $(".hidden-page");
-
-  log("preRenderPage", $newPage);
-
-  makePages($newPage);
-
-  $canvasLeft = $(".hidden-page .left-content");
-  $canvasRight = $(".hidden-page .right-content");
-
-  log("make page", $canvasLeft);
-
-  $pageLeft = $(".hidden-page .page-left");
-  $pageRight = $(".hidden-page .page-right");
-}
-
-async function renderPage(_curNumPage, _totalNumPage) {
-  switchPage();
-  preRenderPage(_curNumPage + 1);
+async function renderPage(_curNumPage, _totalNumPage, _mode) {
   let renderContextLeft;
+  let renderContextBg;
   let page = await getPage(_curNumPage);
+  let nextpage;
+
+  if (_mode == "+") {
+    nextpage = await getPage(varifyPageNum(_curNumPage + 1));
+  } else if (_mode == "-") {
+    nextpage = await getPage(varifyPageNum(_curNumPage - 1));
+  } else {
+    nextpage = await getPage(varifyPageNum(_curNumPage + 1));
+  }
+
+  renderContextBg = await getRenderContext(
+    "page2",
+    $canvasBg[0].getContext("2d"),
+    nextpage
+  );
 
   if (_curNumPage == 1 || _curNumPage == _totalNumPage) {
     log("render case 1: page one");
     $pageRight.hide();
-
     renderContextLeft = await getRenderContext(
       "page1",
       $canvasLeft[0].getContext("2d"),
@@ -159,6 +136,16 @@ async function renderPage(_curNumPage, _totalNumPage) {
 
     await page.render(renderContextLeft);
     await page.render(renderContextRight);
+  }
+
+  if (curNumPage != 1) {
+    $(".background").width($(".content-inner").width());
+    $(".background").height($(".content-inner").height());
+    await nextpage.render(renderContextBg);
+  } else if (curNumPage == 1) {
+    $(".background").width($canvasLeft.width());
+    $(".background").height($canvasLeft.height());
+    await page.render(renderContextBg);
   }
   log("finish render");
 }
