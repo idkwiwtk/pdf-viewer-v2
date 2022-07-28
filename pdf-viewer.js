@@ -43,6 +43,12 @@ async function initViewport() {
   scaledViewport = scale;
 }
 
+function bookFlipAnimation(_mode, _curNumPage) {
+  if (_mode == "next") {
+  } else if (_mode == "prev") {
+  }
+}
+
 /**
  * 페이지 전환을 위한 현재 페이지 수 변경 함수
  * 범위 내로 움직임을 보장
@@ -71,7 +77,16 @@ function calCurNumPage(mode) {
  */
 function onPrevBtn() {
   log("prev btn");
-  calCurNumPage("-");
+  if ($(window).width() > 1024 && curNumPage > 1) {
+    let page = ".page-left";
+    $(page).addClass("book-flip-l-r");
+    setTimeout(function () {
+      $(page).removeClass("book-flip-l-r");
+      calCurNumPage("-");
+    }, 1000);
+  } else {
+    calCurNumPage("-");
+  }
 }
 
 /**
@@ -79,7 +94,21 @@ function onPrevBtn() {
  */
 function onNextBtn() {
   log("next btn");
-  calCurNumPage("+");
+  if ($(window).width() > 1024) {
+    let page;
+    if (curNumPage == 1) {
+      page = ".page-left";
+    } else {
+      page = ".page-right";
+    }
+    $(page).addClass("book-flip-r-l");
+    setTimeout(function () {
+      $(page).removeClass("book-flip-r-l");
+      calCurNumPage("+");
+    }, 1000);
+  } else {
+    calCurNumPage("+");
+  }
 }
 
 function varifyPageNum(num) {

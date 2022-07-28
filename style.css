@@ -147,3 +147,22 @@ body {
     overflow: hidden;
   }
 }
+
+/*
+next
+*/
+.book-flip-r-l {
+  transition-duration: 1s;
+  transform-origin: left center;
+  transform: rotateY(-180deg);
+}
+
+/*
+prev
+*/
+.book-flip-l-r {
+  transition-duration: 1s;
+  transform-origin: right center;
+  transform: rotateY(180deg);
+  z-index: 9999;
+}
