@@ -83,11 +83,10 @@ function onPrevBtn() {
     $(page).addClass("book-flip-l-r");
     setTimeout(function () {
       $(page).removeClass("book-flip-l-r");
-      calCurNumPage("-");
     }, 1000);
   } else {
-    calCurNumPage("-");
   }
+  calCurNumPage("-");
 }
 
 /**
@@ -105,11 +104,10 @@ function onNextBtn() {
     $(page).addClass("book-flip-r-l");
     setTimeout(function () {
       $(page).removeClass("book-flip-r-l");
-      calCurNumPage("+");
     }, 1000);
   } else {
-    calCurNumPage("+");
   }
+  calCurNumPage("+");
 }
 
 function varifyPageNum(num) {
