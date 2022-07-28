@@ -110,16 +110,17 @@ function onChangePageNum(thiz) {
 }
 
 $(document).ready(function () {
-  var prev_width;
+  // var prev_width;
   $(window).resize(function () {
     if ($(window).width() <= 1024) {
       log("mobile");
     } else {
       log("pc");
     }
-    if ($(window).width() != prev_width) {
-      renderPage(curNumPage, totalNumPage);
-      prev_width = $(window).width();
-    }
+    // if ($(window).width() != prev_width) {
+    //   renderPage(curNumPage, totalNumPage);
+    //   prev_width = $(window).width();
+    // }
+    renderPage(curNumPage, totalNumPage);
   });
 });
