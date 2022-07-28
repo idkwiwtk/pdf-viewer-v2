@@ -138,11 +138,11 @@ async function renderPage(_curNumPage, _totalNumPage, _mode) {
     await page.render(renderContextRight);
   }
 
-  if (curNumPage != 1) {
+  if (curNumPage != 1 && curNumPage != 41) {
     $(".background").width($(".content-inner").width());
     $(".background").height($(".content-inner").height());
     await nextpage.render(renderContextBg);
-  } else if (curNumPage == 1) {
+  } else if (curNumPage == 1 || curNumPage == 41) {
     $(".background").width($canvasLeft.width());
     $(".background").height($canvasLeft.height());
     await page.render(renderContextBg);

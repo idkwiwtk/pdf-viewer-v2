@@ -116,8 +116,10 @@ function varifyPageNum(num) {
   let res = parseInt(num);
 
   if (res != NaN) {
-    if (res < 1 || res > totalNumPage) {
+    if (res < 1) {
       return 1;
+    } else if (res > totalNumPage) {
+      return totalNumPage;
     }
     return res;
   }
