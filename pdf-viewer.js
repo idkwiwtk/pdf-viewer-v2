@@ -144,8 +144,10 @@ $(document).ready(function () {
   $(window).resize(function () {
     if ($(window).width() <= 1024) {
       log("mobile");
+      $(".background").hide();
     } else {
       log("pc");
+      $(".background").show();
     }
     // if ($(window).width() != prev_width) {
     //   renderPage(curNumPage, totalNumPage);
