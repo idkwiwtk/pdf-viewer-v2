@@ -17,7 +17,7 @@ async function getPage(_num) {
 
 // 첫번째 페이지를 기준으로 퓨포트 크기를 조정함
 function getScaledViewport(_page, _mode) {
-  let tempViewport = _page.getViewport({ scale: 1, offsetX: 5 });
+  let tempViewport = _page.getViewport({ scale: 1, offsetX: 700 });
   let scale = canvas.height / tempViewport.height;
 
   if ($(window).width() <= 1024) {
@@ -139,12 +139,12 @@ async function renderPage(_curNumPage, _totalNumPage, _mode) {
   }
 
   if (curNumPage != 1 && curNumPage != 41) {
-    $(".background").width($(".content-inner").width());
-    $(".background").height($(".content-inner").height());
+    // $(".background").width($(".content-inner").width());
+    // $(".background").height($(".content-inner").height());
     await nextpage.render(renderContextBg);
   } else if (curNumPage == 1 || curNumPage == 41) {
-    $(".background").width($canvasLeft.width());
-    $(".background").height($canvasLeft.height());
+    // $(".background").width($canvasLeft.width());
+    // $(".background").height($canvasLeft.height());
     await page.render(renderContextBg);
   }
   log("finish render");

@@ -107,8 +107,8 @@ body {
 }
 
 .page-right {
-  display: flex;
-  flex-direction: row-reverse;
+  /* display: flex;
+  flex-direction: row-reverse; */
 }
 
 .left-content,
@@ -122,6 +122,7 @@ body {
 */
 .right-content {
   width: auto;
+  transform: translateX(-50%);
 }
 
 .down-pdf {
@@ -193,7 +194,7 @@ prev
 .background {
   position: absolute;
   display: block;
-  width: 100%;
+  width: auto;
   height: 100%;
   z-index: -1;
 }
