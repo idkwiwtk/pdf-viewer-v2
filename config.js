@@ -27,9 +27,41 @@ var curNumPage = 1; // 현재 페이지 번호
 var totalNumPage; // 총 페이지 수
 
 // 캔버스 객체
-var $canvasLeft = $(".left-content");
-var $canvasRight = $(".right-content");
-var $canvasBg = $(".background");
+// var $canvasLeft = $(".left-content");
+var $canvasLeft = $('<canvas class="left-content"></canvas>');
+// var $canvasRight = $(".right-content");
+var $canvasRight = $('<canvas class="right-content"></canvas>');
+// var $canvasBg = $(".background");
+var $canvasBg = $("<canvas class='background'></canvas>");
+
+var $canvasPrev = $('<canvas class="prev-content"></canvas>');
+var $canvasNext = $('<canvas class="next-content"></canvas>');
 
 var $pageLeft = $(".page-left");
 var $pageRight = $(".page-right");
+
+var $pagePrev = $(".page-prev");
+var $pageNext = $(".page-next");
+
+var $imgPrev = $(".page-prev img");
+var $imgNext = $(".page-next img");
+var $imgLeft = $(".page-left > img");
+var $imgLeft = $(".p1");
+var $imgRight = $(".page-right > img");
+
+var $img1 = $(".p1");
+var $img2 = $(".p2");
+var $img3 = $(".p3");
+var $img4 = $(".p4");
+var $img5 = $(".p5");
+
+var imgArr = [$(".p1"), $(".p2"), $(".p3"), $(".p4"), $(".p5")];
+
+var canvasArr = [
+  $("<canvas class='c1'></canvas>"),
+  $("<canvas class='c2'></canvas>"),
+  $("<canvas class='c3'></canvas>"),
+  $("<canvas class='c4'></canvas>"),
+  $("<canvas class='c5'></canvas>"),
+];
+var swiper;

@@ -206,3 +206,13 @@ prev
   height: 100%;
   z-index: -1;
 }
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide img {
+  width: 100%;
+  height: 100%;
+}

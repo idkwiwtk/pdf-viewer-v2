@@ -13,6 +13,11 @@
     <script src="//mozilla.github.io/pdf.js/build/pdf.js"></script>
     <link rel="stylesheet" href="style.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     <!-- <link
       href="../animation/booklet-master/src/jquery.booklet.latest.css"
       type="text/css"
@@ -44,17 +49,41 @@
         <a href="./test.pdf" class="down-pdf" download="">PDF 다운로드</a>
       </div>
       <div class="content-wrap">
-        <div class="content-inner show-page">
-          <div class="test-img"><img src="" alt="" /></div>
-          <canvas class="background"></canvas>
-          <div class="page-left">
-            <canvas class="left-content"></canvas>
+        <div class="content-inner">
+          <!-- Slider main container -->
+          <div class="swiper">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper">
+              <!-- Slides -->
+              <div class="swiper-slide"><img src="" alt="" class="p1" /></div>
+              <div class="swiper-slide"><img src="" alt="" class="p2" /></div>
+              <div class="swiper-slide"><img src="" alt="" class="p3" /></div>
+              <div class="swiper-slide"><img src="" alt="" class="p4" /></div>
+              <div class="swiper-slide"><img src="" alt="" class="p5" /></div>
+            </div>
+            <!-- If we need pagination -->
+            <!-- <div class="swiper-pagination"></div> -->
+
+            <!-- If we need navigation buttons -->
+            <!-- <div class="swiper-button-prev"></div> -->
+            <!-- <div class="swiper-button-next"></div> -->
+
+            <!-- If we need scrollbar -->
+            <!-- <div class="swiper-scrollbar"></div> -->
           </div>
-          <div class="page-right">
-            <canvas class="right-content"></canvas>
-          </div>
+          <!-- <div class="test-img"><img src="" alt="" /></div> -->
+          <!-- <canvas class="background"></canvas> -->
+          <!-- <div class="page-left"> -->
+          <!-- <div class="page-prev"><img src="" alt="" /></div> -->
+          <!-- <img src="" alt="" /> -->
+          <!-- <canvas class="left-content"></canvas> -->
+          <!-- </div> -->
+          <!-- <div class="page-right"> -->
+          <!-- <div class="page-next"><img src="" alt="" /></div> -->
+          <!-- <img src="" alt="" /> -->
+          <!-- <canvas class="right-content"></canvas> -->
+          <!-- </div> -->
         </div>
-        <div class="content-inner hidden-page"></div>
       </div>
     </div>
     <script src="./config.js"></script>

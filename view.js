@@ -65,15 +65,19 @@ function setCanvasSize(_mode, _viewport) {
   }
 }
 
-async function getRenderContext(_mode, _ctx, _page) {
+async function getRenderContext(_mode, $_canvas, _page) {
   // let viewport = scaledViewport && getScaledViewport(_page);
-  let viewport = getScaledViewport(_page, _mode);
-
+  // let viewport = getScaledViewport(_page, _mode);
+  let viewport = _page.getViewport({ scale: 2 });
   log("getRenderContext: viewport", viewport);
+  log("context:", $_canvas);
 
-  setCanvasSize(_mode, viewport);
+  $_canvas.width = viewport.width;
+  $_canvas.height = viewport.height;
 
-  return { canvasContext: _ctx, viewport: viewport };
+  // setCanvasSize(_mode, viewport);
+
+  return { canvasContext: $_canvas.getContext("2d"), viewport: viewport };
 
   if (_mode == "page1") {
     return { canvasContext: _ctx, viewport: viewport };
@@ -85,71 +89,33 @@ async function getRenderContext(_mode, _ctx, _page) {
   return [];
 }
 
-async function renderPage(_curNumPage, _totalNumPage, _mode) {
-  let renderContextLeft;
-  let renderContextBg;
-  let page = await getPage(_curNumPage);
-  let nextpage;
+async function renderCanvas($_canvas, _page) {
+  let renderContext = await getRenderContext("canvas", $_canvas[0], _page);
 
-  if (_mode == "+") {
-    nextpage = await getPage(varifyPageNum(_curNumPage + 1));
-  } else if (_mode == "-") {
-    nextpage = await getPage(varifyPageNum(_curNumPage - 1));
-  } else {
-    nextpage = await getPage(varifyPageNum(_curNumPage + 1));
-  }
+  await _page.render(renderContext);
+}
 
-  renderContextBg = await getRenderContext(
-    "page2",
-    $canvasBg[0].getContext("2d"),
-    nextpage
-  );
+function convertCanvasToDataURL($_canvas) {
+  return $_canvas[0].toDataURL("image/png");
+}
 
-  if (_curNumPage == 1 || _curNumPage == _totalNumPage) {
-    log("render case 1: page one");
-    $pageRight.hide();
-    renderContextLeft = await getRenderContext(
-      "page1",
-      $canvasLeft[0].getContext("2d"),
-      page
-    );
-    log("renderPage -> renderContext", renderContextLeft);
+function chagneImageSrc(_dataURL, $_img) {
+  $_img[0].src = _dataURL;
+}
 
-    await page.render(renderContextLeft);
-  } else {
-    log("render case 2: page two");
-    $pageRight.show();
+async function renderPage(_pageNum, $_renderCanvas) {
+  let page = await getPage(_pageNum);
 
-    // render Left page
-    renderContextLeft = await getRenderContext(
-      "page2",
-      $canvasLeft[0].getContext("2d"),
-      page
-    );
+  renderCanvas($_renderCanvas, page);
 
-    // render Right page
-    renderContextRight = await getRenderContext(
-      "page2",
-      $canvasRight[0].getContext("2d"),
-      page
-    );
+  setTimeout(function () {
+    let urlData = convertCanvasToDataURL($_renderCanvas);
 
-    await page.render(renderContextLeft);
-    await page.render(renderContextRight);
-  }
+    chagneImageSrc(urlData, $imgLeft);
 
-  if (curNumPage != 1 && curNumPage != 41) {
-    // $(".background").width($(".content-inner").width());
-    // $(".background").height($(".content-inner").height());
-    await nextpage.render(renderContextBg);
-  } else if (curNumPage == 1 || curNumPage == 41) {
-    // $(".background").width($canvasLeft.width());
-    // $(".background").height($canvasLeft.height());
-    await page.render(renderContextBg);
-  }
-  // setTimeout(function () {
-  //   test();
-  // }, 1000);
+    // log("url", urlData);
+  }, 1000);
+
   log("finish render");
 }
 
@@ -163,6 +129,6 @@ function queueRenderPage(num) {
   if (pageRendering) {
     pageNumPending = num;
   } else {
-    renderPage(num);
+    // renderPage(num);
   }
 }

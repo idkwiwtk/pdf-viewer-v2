@@ -5,7 +5,28 @@ $(document).ready(function () {
   pdfjsLib.getDocument(url).promise.then(function (pdfDoc_) {
     initViewer(pdfDoc_);
     initComponent(curNumPage, totalNumPage);
-    renderPage(curNumPage, totalNumPage);
+    initRender();
+  });
+  swiper = new Swiper(".swiper", {
+    // Optional parameters
+    direction: "horizontal",
+    loop: true,
+    slidesPerView: 2,
+    // If we need pagination
+    pagination: {
+      // el: ".swiper-pagination",
+    },
+
+    // Navigation arrows
+    navigation: {
+      nextEl: ".next-btn",
+      prevEl: ".prev-btn",
+    },
+
+    // And if we need scrollbar
+    scrollbar: {
+      // el: ".swiper-scrollbar",
+    },
   });
 });
 /**
@@ -28,6 +49,16 @@ function initViewer(_pdfDoc) {
   $(".next-btn").click(onNextBtn);
 
   log("finish init Viewer");
+}
+
+/**
+ * 초기 랜더링 작업 수행
+ */
+function initRender() {
+  log("init render");
+
+  renderPage(curNumPage, $canvasLeft);
+  // renderPrevPage(curNumPage, totalNumPage);
 }
 
 // 첫번째 페이지를 기준으로 뷰포트를 초기화
@@ -61,14 +92,14 @@ function calCurNumPage(mode) {
       curNumPage++;
       log("page up: ", curNumPage);
       updateCurNumPage(curNumPage);
-      renderPage(curNumPage, totalNumPage, "+");
+      renderPage(curNumPage, $canvasLeft);
     }
   } else if (mode == "-") {
     if (curNumPage - 1 > 0) {
       curNumPage--;
       log("page down: ", curNumPage);
       updateCurNumPage(curNumPage);
-      renderPage(curNumPage, totalNumPage, "-");
+      renderPage(curNumPage, $canvasLeft);
     }
   }
 }
