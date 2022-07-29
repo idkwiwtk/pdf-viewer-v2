@@ -147,7 +147,16 @@ async function renderPage(_curNumPage, _totalNumPage, _mode) {
     // $(".background").height($canvasLeft.height());
     await page.render(renderContextBg);
   }
+  // setTimeout(function () {
+  //   test();
+  // }, 1000);
   log("finish render");
+}
+
+function test() {
+  let dataURL = $canvasBg[0].toDataURL("image/png");
+
+  $(".test-img img")[0].src = dataURL;
 }
 
 function queueRenderPage(num) {
