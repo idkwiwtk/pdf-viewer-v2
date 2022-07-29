@@ -40,6 +40,15 @@ body {
   background-color: #7a4495;
   opacity: 1;
   color: white;
+  position: fixed;
+  top: 50%;
+}
+
+.prev-btn {
+  left: 0;
+}
+.next-btn {
+  right: 0;
 }
 
 .prev-btn:hover,
